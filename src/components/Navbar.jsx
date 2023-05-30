@@ -1,5 +1,7 @@
 import React from 'react'
 import profile from '../img/profile.png'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 
 function Navbar() {
   return (
@@ -8,7 +10,7 @@ function Navbar() {
         <div className="user">
             <img src={profile} alt="Profile" />
             <span>Maxim</span>
-            <button>Logout</button>
+            <button onClick={()=>signOut(auth)} >Logout</button>
         </div>
     </div>
   )
