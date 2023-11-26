@@ -1,3 +1,28 @@
+// Responsiveness
+@mixin mobile {
+  @media screen and (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 800px) {
+    @content;
+  }
+}
+
+@mixin maxtablet{
+  @media screen and (max-width:900px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (max-width: 1100px) {
+    @content;
+  }
+}
+
 // Rigester and Login
 .formContainer {
   background-color: #a7bcff;
@@ -88,9 +113,28 @@
     display: flex;
     overflow: hidden;
 
+    @include laptop{
+      width: 80%;
+    }
+
+    @include maxtablet{
+      width: 90%;
+    }
+
+    @include tablet {
+      width: 100%;
+    }
+
+    @include mobile {
+      width: 100%;
+      height: 100%;
+    }
+
+
     .sidebar {
       flex: 1;
       background-color: #3e3c61;
+      overflow-y: auto;
 
       .navbar {
         display: flex;
@@ -181,6 +225,10 @@
 
     .chat {
       flex: 2;
+
+      @include mobile {
+        display: none;
+      }
 
       .chatInfo {
         height: 50px;
