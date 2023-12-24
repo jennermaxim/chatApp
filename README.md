@@ -2,7 +2,7 @@
 
 In Progress...
 
-## Output: https://maxim-chat-app.netlify.app/login
+## Output: https://maxim-chat-app.netlify.app/
 
 ## Getting Started with Create React App
 
