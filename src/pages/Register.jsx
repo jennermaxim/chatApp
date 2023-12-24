@@ -4,7 +4,7 @@ import { auth, storage, db } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -62,7 +62,7 @@ const Register = () => {
         <span className="logo">Maxim Chat App</span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Name" />
+          <input type="text" placeholder="Name" required />
           <input type="email" placeholder="Email" required />
           <input
             type="password"
@@ -78,7 +78,9 @@ const Register = () => {
           <button>Sign Up</button>
           {err && <span>Something went wrong!</span>}
         </form>
-        <p>You do have an account? Login</p>
+        <p>
+          You do have an account?<Link to="/loging">Login</Link>
+        </p>
       </div>
     </div>
   );
