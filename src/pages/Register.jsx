@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Add from "../img/addAvatar.png";
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, storage } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Register = () => {
   const [err, setErr] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const displayName = e.target[0].value;
@@ -15,7 +16,24 @@ const Register = () => {
     const file = e.target[3].files[0];
 
     try {
-      const res = createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      const storageRef = ref(storage, displayName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        (error) => {
+          setErr(true);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateProfile(res.user, {
+              displayName,
+              photoURL: downloadURL,
+            });
+          });
+        }
+      );
     } catch (err) {
       setErr(true);
     }
@@ -29,7 +47,12 @@ const Register = () => {
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="Name" />
           <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required minLength={6} />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            minLength={6}
+          />
           <input style={{ display: "none" }} type="file" id="file" />
           <label htmlFor="file">
             <img src={Add} alt="Profil" />
