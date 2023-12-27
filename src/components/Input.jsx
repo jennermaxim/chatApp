@@ -22,7 +22,30 @@ function Input() {
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
-    if (img) {
+    if (!text && !img) {
+      return;
+    // } else if (img) {
+    //   const storageRef = ref(storage, uuid);
+    //   const uploadTask = uploadBytesResumable(storageRef, img);
+
+    //   uploadTask.on(
+    //     (error) => {
+    //       // SetErr(true);
+    //     },
+    //     () => {
+    //       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+    //         await updateDoc(doc(db, "chats", data.chatId), {
+    //           messages: arrayUnion({
+    //             id: uuid(),
+    //             senderId: currentUser.uid,
+    //             data: Timestamp.now(),
+    //             img: downloadURL,
+    //           }),
+    //         });
+    //       });
+    //     }
+    //   );
+    } else if (text && img) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
 

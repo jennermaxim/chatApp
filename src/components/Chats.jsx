@@ -4,10 +4,12 @@ import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
-const Chats = () => {
+const Chats = ({ hideChat ,smallScreen}) => {
   const [chats, setChats] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
+
+  // const [screen, setScreen] = useState(window.innerWidth <= 480);
 
   useEffect(() => {
     const getChats = () => {
@@ -21,8 +23,26 @@ const Chats = () => {
     currentUser.uid && getChats();
   }, [currentUser.uid]);
 
-  const handleSelect = (u) => {
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setScreen(window.innerWidth <= 480);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
+  const handleSelectUser = (u) => {
     dispatch({ type: "CHANGE_USER", payload: u });
+  };
+
+  const handleSelect = (u) => {
+    if (smallScreen) {
+      hideChat();
+    }
+
+    handleSelectUser(u);
   };
 
   return (

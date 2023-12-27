@@ -1,16 +1,39 @@
-import React from 'react'
-import Sidebar from '../components/Sidebar'
-import Chat from '../components/Chat'
+import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Sidebar";
+import Chat from "../components/Chat";
 
 const Home = () => {
-  return (
-    <div className='home'>
-        <div className="container">
-            <Sidebar />
-            <Chat />
-        </div>
-    </div>
-  )
-}
+  const [isVisible, setIsVisible] = useState(true);
+  const [smallScreen, setSmallScreen] = useState(window.innerWidth <= 480);
+  // const [showChat, setShowChat] = useState(false);
 
-export default Home
+  useEffect(() => {
+    const handleResize = () => {
+      const isSmall = window.innerWidth <= 480;
+      setSmallScreen(isSmall);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const hideChat = () => {
+    if (smallScreen) {
+      setIsVisible(false);
+    }
+  };
+
+  return (
+    <div className="home">
+      <div className="container">
+        {isVisible && <Sidebar hideChat={hideChat} smallScreen={smallScreen} />}
+        <Chat />
+      </div>
+    </div>
+  );
+};
+
+export default Home;

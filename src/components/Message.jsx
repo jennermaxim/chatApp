@@ -12,6 +12,12 @@ const Message = ({ message }) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
+  const sendTime = message.date;
+  const milliseconds = sendTime.seconds * 1000 + Math.round(sendTime.nanoseconds / 1e6);
+  const date =new Date(milliseconds)
+  const localTime = date.toLocaleString();
+  const readDate = date.toISOString().replace('T', ' ').replace(/\..+/, '');
+  console.log(localTime);
   return (
     <div
       ref={ref}
@@ -26,7 +32,7 @@ const Message = ({ message }) => {
           }
           alt="Profime"
         />
-        <span>just now</span>
+        <span>{localTime}</span>
       </div>
       <div className="messageContent">
         <p>{message.text}</p>
