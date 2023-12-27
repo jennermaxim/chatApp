@@ -6,18 +6,16 @@ const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
+  const sendTime = new Date(
+    message.date.seconds * 1000 + Math.round(message.date.nanoseconds / 1e6)
+  ).toLocaleString();
+
   const ref = useRef();
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
-  const sendTime = message.date;
-  const milliseconds = sendTime.seconds * 1000 + Math.round(sendTime.nanoseconds / 1e6);
-  const date =new Date(milliseconds)
-  const localTime = date.toLocaleString();
-  const readDate = date.toISOString().replace('T', ' ').replace(/\..+/, '');
-  console.log(localTime);
   return (
     <div
       ref={ref}
@@ -32,7 +30,7 @@ const Message = ({ message }) => {
           }
           alt="Profime"
         />
-        <span>{localTime}</span>
+        <span>{sendTime}</span>
       </div>
       <div className="messageContent">
         <p>{message.text}</p>
