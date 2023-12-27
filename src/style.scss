@@ -40,6 +40,10 @@
     gap: 10px;
     align-items: center;
 
+    @include mobile{
+      width: 60%;
+    }
+
     .logo {
       color: #5d5b8d;
       font-weight: bold;
@@ -128,12 +132,14 @@
     @include mobile {
       width: 100%;
       height: 100%;
+      border-radius: 0;
     }
 
     .sidebar {
       flex: 1;
       background-color: #3e3c61;
       overflow-y: auto;
+      overflow-x: hidden;
 
       .navbar {
         display: flex;
@@ -207,12 +213,13 @@
       }
 
       .userChat {
-        padding: 10px;
+        margin: 10px;
         display: flex;
         align-items: center;
         gap: 10px;
         color: #fff;
         cursor: pointer;
+        overflow: hidden;
 
         &:hover {
           background-color: #2f2d52;
@@ -224,12 +231,13 @@
           border-radius: 50%;
           object-fit: cover;
 
-          @include mobile{
+          @include mobile {
             margin-right: 10px;
           }
         }
 
         .userChatInfo {
+          width: 75%;
           span {
             font-size: 18px;
             font-weight: 500;
@@ -239,6 +247,10 @@
             font-size: 14px;
             color: lightgray;
             margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            // width: 80%;
           }
         }
       }
@@ -248,25 +260,36 @@
       flex: 2;
 
       @include mobile {
+        width: 100%;
         display: none;
       }
 
       .chatInfo {
+        box-sizing: border-box;
         height: 50px;
         background-color: #5d5b8d;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px;
+        padding: 10px 20px 10px 10px;
         color: lightgray;
+
+        @include mobile{
+          position: fixed;
+          width: 100%;
+        }
+
+        .backArrow{
+          cursor: pointer;
+        }
 
         .chatIcons {
           display: flex;
-          gap: 10px;
 
           img {
             height: 24px;
             cursor: pointer;
+            margin-right: 10px;
           }
         }
       }
@@ -274,12 +297,15 @@
       .messages {
         background-color: #ddddf7;
         padding: 10px;
-        height: calc(100% - 160px);
+        height: calc(100% - 120px);
         overflow: scroll;
+
+        @include mobile{
+          margin-top: 50px;
+        }
 
         .message {
           display: flex;
-          gap: 5px;
           margin-bottom: 20px;
 
           .messageInfo {
@@ -295,9 +321,9 @@
               object-fit: cover;
             }
 
-            span{
+            span {
               font-size: 10px;
-              width: 56px;
+              width: 61px;
             }
           }
 
@@ -311,7 +337,9 @@
               background-color: #fff;
               padding: 10px 20px;
               border-radius: 0px 10px 10px 10px;
-              min-width: max-content;
+              max-width: 90%;
+              word-wrap: break-word;
+              // min-width: max-content;
             }
 
             img {
@@ -324,6 +352,7 @@
 
             .messageContent {
               align-items: flex-end;
+              margin-right: 5px;
 
               p {
                 background-color: #8da4f1;
@@ -336,12 +365,19 @@
       }
 
       .input {
+        box-sizing: border-box;
         height: 50px;
         background-color: #fff;
         padding: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include mobile{
+          bottom: 0;
+          position: fixed;
+          width: 100%;
+        }
 
         input {
           width: 100%;
@@ -358,11 +394,11 @@
         .send {
           display: flex;
           align-items: center;
-          gap: 10px;
 
           img {
             height: 24px;
             cursor: pointer;
+            margin-right: 10px;
           }
 
           button {

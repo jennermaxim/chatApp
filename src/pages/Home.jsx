@@ -30,7 +30,7 @@ const Home = () => {
     <div className="home">
       <div className="container">
         {isVisible && <Sidebar hideChat={hideChat} smallScreen={smallScreen} />}
-        <Chat />
+        <Chat isVisible={isVisible} setIsVisible={setIsVisible} />
       </div>
     </div>
   );
