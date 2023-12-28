@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Add from "../img/addAvatar.png";
+import Loading from "../img/loading.gif";
 import { auth, storage, db } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -9,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
+  const [disableRegister, setDisableRegister] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +19,8 @@ const Register = () => {
     const email = e.target[1].value;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
+
+    setDisableRegister(true);
 
     try {
       // LOGIN AUTHENTIFICAION
@@ -53,6 +57,7 @@ const Register = () => {
       );
     } catch (err) {
       setErr(true);
+      setDisableRegister(false);
     }
   };
 
@@ -75,7 +80,9 @@ const Register = () => {
             <img src={Add} alt="Profil" />
             <span>Add a profil</span>
           </label>
-          <button>Sign Up</button>
+          <button disabled={disableRegister}>
+            {disableRegister ? <img src={Loading} alt="" /> : "Sign Up"}
+          </button>
           {err && <span>The account already exist!</span>}
         </form>
         <p>

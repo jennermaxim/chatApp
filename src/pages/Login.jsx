@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import Loading from "../img/loading.gif";
 
 const Login = () => {
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
+  const [disableLogin, setDisableLogin] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const email = e.target[0].value;
     const password = e.target[1].value;
+    setDisableLogin(true);
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (err) {
       setErr(true);
+      setDisableLogin(false);
     }
   };
 
@@ -27,10 +31,12 @@ const Login = () => {
         <span className="logo">Maxim Chat App</span>
         <span className="title">Login</span>
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Login</button>
-          {err && <span>The account doesn't exist!</span>}
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Password" required />
+          <button disabled={disableLogin}>
+            {disableLogin ? <img src={Loading} alt="" /> : "Login"}
+          </button>
+          {err && <span>Wrong email or password!</span>}
         </form>
         <p>
           You don't have an account? <Link to="/register">Rigester</Link>
