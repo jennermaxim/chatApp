@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import SearchBtn from "../img/search.png";
 
 function Search() {
   const [username, setUsername] = useState("");
@@ -35,8 +36,13 @@ function Search() {
     }
   };
   const handleKey = (e) => {
-    e.code === "Enter" && handleSearch();
+    handleSearch();
+    // e.code === "Enter" && handleSearch();
   };
+
+  const callSearch = () => {
+    handleSearch();
+  }
 
   const handleSelect = async () => {
     // Check whether the group (Chats in firestore) exits, if not creates
@@ -82,10 +88,13 @@ function Search() {
         <input
           type="text"
           placeholder="find a user"
-          onKeyDown={handleKey}
+          onKeyUp={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
+        <button onClick={callSearch}>
+          <img src={SearchBtn} alt="" />
+        </button>
       </div>
       {err && <span>User not found!</span>}
       {user && (

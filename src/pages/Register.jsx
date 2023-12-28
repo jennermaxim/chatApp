@@ -76,7 +76,7 @@ const Register = () => {
             <span>Add a profil</span>
           </label>
           <button>Sign Up</button>
-          {err && <span>Something went wrong!</span>}
+          {err && <span>The account already exist!</span>}
         </form>
         <p>
           You do have an account? <Link to="/login">Login</Link>

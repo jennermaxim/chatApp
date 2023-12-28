@@ -198,6 +198,8 @@
 
         .searchForm {
           padding: 10px;
+          display: flex;
+          justify-content: space-between;
 
           input {
             background-color: transparent;
@@ -207,7 +209,16 @@
 
             &::placeholder {
               color: lightgray;
+              font-size: 14px;
             }
+          }
+
+          button{
+            border: none;
+            background-color: #5d5b8d;
+            padding:5px;
+            border-radius: 5px;
+            cursor: pointer;
           }
         }
       }
