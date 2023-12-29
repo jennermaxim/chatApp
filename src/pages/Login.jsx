@@ -39,7 +39,7 @@ const Login = () => {
           {err && <span>Wrong email or password!</span>}
         </form>
         <p>
-          You don't have an account? <Link to="/register">Rigester</Link>
+          You don't have an account? <Link to="/register">Register</Link>
         </p>
       </div>
     </div>
