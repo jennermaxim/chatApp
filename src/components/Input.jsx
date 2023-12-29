@@ -24,27 +24,27 @@ function Input() {
   const handleSend = async () => {
     if (!text && !img) {
       return;
-    // } else if (img) {
-    //   const storageRef = ref(storage, uuid);
-    //   const uploadTask = uploadBytesResumable(storageRef, img);
+      // } else if (img) {
+      //   const storageRef = ref(storage, uuid);
+      //   const uploadTask = uploadBytesResumable(storageRef, img);
 
-    //   uploadTask.on(
-    //     (error) => {
-    //       // SetErr(true);
-    //     },
-    //     () => {
-    //       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-    //         await updateDoc(doc(db, "chats", data.chatId), {
-    //           messages: arrayUnion({
-    //             id: uuid(),
-    //             senderId: currentUser.uid,
-    //             data: Timestamp.now(),
-    //             img: downloadURL,
-    //           }),
-    //         });
-    //       });
-    //     }
-    //   );
+      //   uploadTask.on(
+      //     (error) => {
+      //       // SetErr(true);
+      //     },
+      //     () => {
+      //       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+      //         await updateDoc(doc(db, "chats", data.chatId), {
+      //           messages: arrayUnion({
+      //             id: uuid(),
+      //             senderId: currentUser.uid,
+      //             data: Timestamp.now(),
+      //             img: downloadURL,
+      //           }),
+      //         });
+      //       });
+      //     }
+      //   );
     } else if (text && img) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
@@ -96,11 +96,16 @@ function Input() {
     setImg(null);
   };
 
+  const handleKey = (e) => {
+    e.code === "Enter" && handleSend();
+  };
+
   return (
     <div className="input">
       <input
         type="text"
         placeholder="Type something..."
+        onKeyDown={handleKey}
         onChange={(e) => setText(e.target.value)}
         value={text}
       />
