@@ -83,6 +83,9 @@ const Register = () => {
           <button disabled={disableRegister}>
             {disableRegister ? <img src={Loading} alt="" /> : "Sign Up"}
           </button>
+          {disableRegister && (
+            <span>Please don't refresh or cancel, be patient with us 🤗</span>
+          )}
           {err && <span>The account already exist!</span>}
         </form>
         <p>
