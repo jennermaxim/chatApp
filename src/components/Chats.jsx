@@ -3,11 +3,13 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import Profile from "../img/profile.avif";
 
-const Chats = ({ hideChat ,smallScreen}) => {
+const Chats = ({ hideChat, smallScreen }) => {
   const [chats, setChats] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
+  const [imgError, setImgError] = useState({});
 
   // const [screen, setScreen] = useState(window.innerWidth <= 480);
 
@@ -45,6 +47,13 @@ const Chats = ({ hideChat ,smallScreen}) => {
     handleSelectUser(u);
   };
 
+  const handleImgError = (userId) => {
+    setImgError((prevErrors) => ({
+      ...prevErrors,
+      [userId]: true,
+    }));
+  };
+
   return (
     <div className="chats">
       {Object.entries(chats)
@@ -55,7 +64,15 @@ const Chats = ({ hideChat ,smallScreen}) => {
             key={chat[0]}
             onClick={() => handleSelect(chat[1].userInfo)}
           >
-            <img src={chat[1].userInfo.photoURL} alt="Profile" />
+            {imgError[chat[1].userInfo.uid] ? (
+              <img src={Profile} alt="Profile" />
+            ) : (
+              <img
+                src={chat[1].userInfo.photoURL}
+                alt="Profile"
+                onError={() => handleImgError(chat[1].userInfo.uid)}
+              />
+            )}
             <div className="userChatInfo">
               <span>{chat[1].userInfo.displayName}</span>
               <p>{chat[1].lastMessage?.text}</p>

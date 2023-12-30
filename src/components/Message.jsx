@@ -28,7 +28,7 @@ const Message = ({ message }) => {
               ? currentUser.photoURL
               : data.user.photoURL
           }
-          alt="Profime"
+          alt="Profile"
         />
         <span>{sendTime}</span>
       </div>
