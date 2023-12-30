@@ -3,7 +3,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
-import Profile from "../img/profile.avif";
+import Profile from "../img/profile.png";
 
 const Chats = ({ hideChat, smallScreen }) => {
   const [chats, setChats] = useState([]);
