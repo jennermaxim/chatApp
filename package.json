@@ -1,5 +1,6 @@
 {
   "name": "chatApp",
+  "homepage": "https://chat.razortechwebsitetraining.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
